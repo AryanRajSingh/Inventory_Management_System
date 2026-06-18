@@ -287,21 +287,42 @@ function App() {
           </form>
 
           <DataCard title="Order List">
-            <table>
-              <thead><tr><th>ID</th><th>Customer ID</th><th>Total</th><th>Items</th><th>Action</th></tr></thead>
-              <tbody>
-                {orders.map((order) => (
-                  <tr key={order.id}>
-                    <td>#{order.id}</td>
-                    <td>{order.customer_id}</td>
-                    <td>₹{order.total_amount}</td>
-                    <td>{order.items?.length || 0}</td>
-                    <td><button className="small danger" onClick={() => handleDeleteOrder(order.id)}>Cancel</button></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </DataCard>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Customer ID</th>
+        <th>Total</th>
+        <th>Total Qty</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {orders.map((order) => (
+        <tr key={order.id}>
+          <td>#{order.id}</td>
+          <td>{order.customer_id}</td>
+          <td>₹{order.total_amount}</td>
+          <td>
+            {order.items?.reduce(
+              (sum, item) => sum + Number(item.quantity || 0),
+              0
+            )}
+          </td>
+          <td>
+            <button
+              className="small danger"
+              onClick={() => handleDeleteOrder(order.id)}
+            >
+              Cancel
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</DataCard>
         </section>
       )}
     </main>
