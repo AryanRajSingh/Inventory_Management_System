@@ -1,421 +1,406 @@
 # Inventory Management System
 
-A full-stack Inventory Management System built with React, FastAPI, PostgreSQL, and Docker.
-The application helps manage products, customers, orders, and stock updates from one simple dashboard.
+## Overview
 
-## Tech Stack
+The Inventory Management System is a full-stack web application designed to manage products, customers, orders, and inventory in a simple and efficient way. The system provides a clean user interface for managing business operations while ensuring data consistency through backend business rules.
 
-**Frontend**
+The project was developed as part of a Software Engineer technical assessment and demonstrates backend development, API design, database management, containerization, deployment, and full-stack integration.
 
-* React
+---
+
+## Live Application
+
+### Frontend
+
+https://inventory-management-system-six-orcin.vercel.app
+
+### Backend API
+
+https://inventory-backend-api-2yg0.onrender.com
+
+### API Documentation
+
+https://inventory-backend-api-2yg0.onrender.com/docs
+
+### Health Check
+
+https://inventory-backend-api-2yg0.onrender.com/health
+
+---
+
+## Source Code
+
+### GitHub Repository
+
+https://github.com/AryanRajSingh/Inventory_Management_System
+
+### Docker Hub Image
+
+https://hub.docker.com/r/darpan15/inventory-backend
+
+---
+
+## Technology Stack
+
+### Frontend
+
+* React.js
 * Vite
 * JavaScript
 * CSS
 
-**Backend**
+### Backend
 
 * Python
 * FastAPI
 * SQLAlchemy
 * Pydantic
 
-**Database**
+### Database
 
 * PostgreSQL
 
-**Containerization**
+### DevOps & Deployment
 
 * Docker
 * Docker Compose
+* Render
+* Vercel
+* GitHub
+
+---
 
 ## Features
 
 ### Product Management
 
-* Add new products
+Users can:
+
+* Add products
 * View all products
-* View product details
-* Update product information
+* Update product details
 * Delete products
-* Track available stock
+* Track available inventory
+
+Each product contains:
+
+* Product Name
+* SKU
+* Price
+* Quantity in Stock
+
+---
 
 ### Customer Management
 
-* Add new customers
-* View all customers
+Users can:
+
+* Add customers
 * View customer details
 * Delete customers
 
+Each customer contains:
+
+* Full Name
+* Email Address
+* Phone Number
+
+---
+
 ### Order Management
 
-* Create customer orders
-* View all orders
-* View order details
-* Cancel or delete orders
-* Automatically reduce stock after order creation
-* Restore stock when an order is cancelled or deleted
+Users can:
+
+* Create orders
+* View order history
+* Cancel orders
+
+Each order contains:
+
+* Customer Information
+* Product Information
+* Ordered Quantity
+* Total Amount
+
+---
 
 ### Dashboard
 
-The dashboard shows:
+The dashboard displays:
 
-* Total products
-* Total customers
-* Total orders
-* Low stock products
+* Total Products
+* Total Customers
+* Total Orders
+* Low Stock Products
 
-## Business Rules
+---
 
-The backend handles the main business logic:
+## Business Rules Implemented
+
+The application enforces the following rules:
 
 * Product SKU must be unique.
 * Customer email must be unique.
 * Product quantity cannot be negative.
-* Orders cannot be placed if stock is not enough.
-* Stock is reduced automatically after an order is created.
-* Stock is restored when an order is cancelled or deleted.
-* Order total amount is calculated by the backend.
-* APIs return proper error messages and HTTP status codes.
+* Orders cannot be created if stock is insufficient.
+* Product inventory is automatically reduced after order creation.
+* Product inventory is restored when an order is cancelled.
+* Order total amount is automatically calculated by the backend.
+* Request validation is handled before processing.
+* Proper HTTP status codes are returned for all API responses.
+* Error handling is implemented across all endpoints.
+
+---
 
 ## Project Structure
 
-```txt
-inventory-order-management-system/
+```text
+Inventory_Management_System/
 │
 ├── backend/
 │   ├── app/
-│   ├── Dockerfile
+│   │   ├── main.py
+│   │   ├── database.py
+│   │   ├── models.py
+│   │   └── schemas.py
+│   │
 │   ├── requirements.txt
+│   ├── Dockerfile
 │   └── .env.example
 │
 ├── frontend/
 │   ├── src/
-│   ├── Dockerfile
+│   │   ├── App.jsx
+│   │   ├── api.js
+│   │   └── styles.css
+│   │
 │   ├── package.json
+│   ├── Dockerfile
+│   ├── nginx.conf
 │   └── .env.example
 │
 ├── docker-compose.yml
 ├── .env.example
-├── README.md
-└── .gitignore
+├── .gitignore
+└── README.md
 ```
 
-## Local Setup with Docker Compose
-
-### 1. Create the environment file
-
-In the root folder, copy `.env.example` and create a new `.env` file.
-
-For Linux, macOS, or WSL:
-
-```bash
-cp .env.example .env
-```
-
-For Windows PowerShell:
-
-```powershell
-Copy-Item .env.example .env
-```
-
-### 2. Start the application
-
-```bash
-docker compose up --build
-```
-
-If you are using Docker inside WSL, run the command from the Ubuntu terminal.
-
-```bash
-sudo docker compose up --build
-```
-
-### 3. Open the application
-
-Frontend:
-
-```txt
-http://localhost:3000
-```
-
-Backend API:
-
-```txt
-http://localhost:8000
-```
-
-Swagger API Docs:
-
-```txt
-http://localhost:8000/docs
-```
-
-Health Check:
-
-```txt
-http://localhost:8000/health
-```
-
-## Running Docker Again
-
-If the terminal was closed or the containers were stopped, start Docker again and run the project:
-
-```bash
-sudo service docker start
-cd /mnt/c/Users/DELL/Desktop/EtharaAI
-sudo docker compose up -d
-```
-
-Check running containers:
-
-```bash
-sudo docker ps
-```
-
-Stop the containers:
-
-```bash
-sudo docker compose down
-```
-
-## Development Mode
-
-The default Docker setup runs the frontend in production mode.
-If you change the code, rebuild the containers:
-
-```bash
-sudo docker compose up --build
-```
-
-For a full clean rebuild:
-
-```bash
-sudo docker compose build --no-cache
-sudo docker compose up
-```
-
-## Manual Backend Setup
-
-Use this only if you want to run the backend without Docker.
-
-```bash
-cd backend
-python -m venv venv
-```
-
-Activate the virtual environment.
-
-For Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-For Linux, macOS, or WSL:
-
-```bash
-source venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Create the backend environment file:
-
-```bash
-copy .env.example .env
-```
-
-Run the backend:
-
-```bash
-uvicorn app.main:app --reload
-```
-
-Backend will run on:
-
-```txt
-http://localhost:8000
-```
-
-## Manual Frontend Setup
-
-Use this only if you want to run the frontend without Docker.
-
-```bash
-cd frontend
-npm install
-```
-
-Create the frontend environment file:
-
-```bash
-copy .env.example .env
-```
-
-Start the frontend:
-
-```bash
-npm run dev
-```
-
-Frontend will run on:
-
-```txt
-http://localhost:5173
-```
+---
 
 ## API Endpoints
 
 ### Products
 
-```txt
-POST   /products
-GET    /products
-GET    /products/{id}
-PUT    /products/{id}
-DELETE /products/{id}
-```
+| Method | Endpoint       |
+| ------ | -------------- |
+| POST   | /products      |
+| GET    | /products      |
+| GET    | /products/{id} |
+| PUT    | /products/{id} |
+| DELETE | /products/{id} |
 
 ### Customers
 
-```txt
-POST   /customers
-GET    /customers
-GET    /customers/{id}
-DELETE /customers/{id}
-```
+| Method | Endpoint        |
+| ------ | --------------- |
+| POST   | /customers      |
+| GET    | /customers      |
+| GET    | /customers/{id} |
+| DELETE | /customers/{id} |
 
 ### Orders
 
-```txt
-POST   /orders
-GET    /orders
-GET    /orders/{id}
-DELETE /orders/{id}
-```
+| Method | Endpoint     |
+| ------ | ------------ |
+| POST   | /orders      |
+| GET    | /orders      |
+| GET    | /orders/{id} |
+| DELETE | /orders/{id} |
 
 ### Dashboard
 
-```txt
-GET /dashboard/summary
-```
+| Method | Endpoint           |
+| ------ | ------------------ |
+| GET    | /dashboard/summary |
 
-## Docker Hub Backend Image
+---
 
-Build the backend Docker image:
+## Running Locally with Docker
 
-```bash
-docker build -t yourdockerusername/inventory-backend:1.0 ./backend
-```
-
-Login to Docker Hub:
+### Clone Repository
 
 ```bash
-docker login
+git clone https://github.com/AryanRajSingh/Inventory_Management_System.git
+cd Inventory_Management_System
 ```
 
-Push the image:
+### Create Environment File
+
+Linux / macOS / WSL:
 
 ```bash
-docker push yourdockerusername/inventory-backend:1.0
+cp .env.example .env
 ```
 
-Example Docker Hub image link:
+Windows PowerShell:
 
-```txt
-https://hub.docker.com/r/yourdockerusername/inventory-backend
+```powershell
+Copy-Item .env.example .env
 ```
 
-## Deployment
+### Start Application
 
-### Backend Deployment on Render
-
-1. Push the project to GitHub.
-2. Open Render and create a new Web Service.
-3. Connect the GitHub repository.
-4. Set the root directory as:
-
-```txt
-backend
+```bash
+docker compose up --build
 ```
 
-5. Use Docker as the deployment method.
-6. Add the required environment variables:
+For WSL users:
 
-```txt
-DATABASE_URL=your_production_postgresql_url
-CORS_ORIGINS=your_frontend_deployed_url
+```bash
+sudo docker compose up --build
 ```
 
-7. Deploy the backend.
-8. After deployment, test the backend URL:
+### Access Application
 
-```txt
-https://your-backend-url.onrender.com/docs
+Frontend:
+
+```text
+http://localhost:3000
 ```
 
-### Frontend Deployment on Vercel
+Backend:
 
-1. Open Vercel and import the GitHub repository.
-2. Set the root directory as:
-
-```txt
-frontend
+```text
+http://localhost:8000
 ```
 
-3. Set the build command:
+Swagger Documentation:
 
-```txt
-npm run build
+```text
+http://localhost:8000/docs
 ```
 
-4. Set the output directory:
+Health Endpoint:
 
-```txt
-dist
+```text
+http://localhost:8000/health
 ```
 
-5. Add the frontend environment variable:
-
-```txt
-VITE_API_URL=your_backend_deployed_url
-```
-
-6. Deploy the frontend.
-7. After deployment, open the live frontend URL and test the full flow.
+---
 
 ## Environment Variables
 
 ### Backend
 
-```txt
-DATABASE_URL=postgresql://username:password@host:port/database_name
+```env
+DATABASE_URL=postgresql://username:password@host:5432/database
 CORS_ORIGINS=http://localhost:3000
 ```
 
 ### Frontend
 
-```txt
+```env
 VITE_API_URL=http://localhost:8000
 ```
 
-## Final Submission Items
+---
 
-The final submission should include:
+## Docker Commands
 
-```txt
-Live Frontend URL:
-https://your-frontend-url.vercel.app](https://inventory-management-system-six-orcin.vercel.app/
+### Build Backend Image
+
+```bash
+docker build -t darpan15/inventory-backend:1.0 ./backend
 ```
 
-## Notes
+### Login to Docker Hub
 
-* Do not commit `.env` files to GitHub.
-* Keep database credentials in environment variables.
-* Test all APIs from Swagger before submitting.
-* Test the frontend on desktop and mobile screen sizes.
-* Make sure the deployed frontend can connect to the deployed backend.
+```bash
+docker login
+```
+
+### Push Image
+
+```bash
+docker push darpan15/inventory-backend:1.0
+```
+
+---
+
+## Deployment
+
+### Backend Deployment
+
+Platform: Render
+
+Backend URL:
+
+```text
+https://inventory-backend-api-2yg0.onrender.com
+```
+
+API Documentation:
+
+```text
+https://inventory-backend-api-2yg0.onrender.com/docs
+```
+
+---
+
+### Frontend Deployment
+
+Platform: Vercel
+
+Frontend URL:
+
+```text
+https://inventory-management-system-six-orcin.vercel.app
+```
+
+Environment Variable Used:
+
+```env
+VITE_API_URL=https://inventory-backend-api-2yg0.onrender.com
+```
+
+---
+
+## Testing Scenarios
+
+The following scenarios were tested:
+
+* Create Product
+* Update Product
+* Delete Product
+* Create Customer
+* Delete Customer
+* Create Order
+* Insufficient Inventory Validation
+* Automatic Stock Reduction
+* Order Cancellation
+* Inventory Restoration
+* Dashboard Statistics
+* API Validation and Error Handling
+
+---
+
+## Future Improvements
+
+* User Authentication and Authorization
+* Role-Based Access Control
+* Inventory Alerts and Notifications
+* Product Search and Filtering
+* Order Status Tracking
+* Export Reports to Excel or PDF
+* Audit Logs
+* Advanced Analytics Dashboard
+
+---
+
+## Author
+
+Aryan Raj
+
+
+Email:
+[aryanraj844101@gmail.com](mailto:aryanraj844101@gmail.com)
