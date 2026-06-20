@@ -408,17 +408,8 @@ VITE_API_URL=http://localhost:8000
 The final submission should include:
 
 ```txt
-GitHub Repository Link:
-https://github.com/yourusername/inventory-order-management-system
-
-Docker Hub Backend Image Link:
-https://hub.docker.com/r/yourdockerusername/inventory-backend
-
 Live Frontend URL:
-https://your-frontend-url.vercel.app
-
-Live Backend API URL:
-https://your-backend-url.onrender.com/docs
+https://your-frontend-url.vercel.app](https://inventory-management-system-six-orcin.vercel.app/
 ```
 
 ## Notes
